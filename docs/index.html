@@ -4,14 +4,16 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta description="文字入れジェネレータはゲームのスクリーンショットに文字入れを載せるためのアプリです。FINAL FANTASY XIVのスクリーンショットでテストしています。">
-		<title>文字入れジェネレータ</title>
+		<meta description="ノルヴラント文字ジェネレータはFF14に使われている文字でロゴを作るためのアプリです。FINAL FANTASY XIVのスクリーンショットでテストしています。">
+		<title>ノルヴラント文字ジェネレータ</title>
 		<script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link href="main.css" rel="stylesheet">
-		<script src="main.js?20190806"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+		<script src="main.js?20191011"></script>
 		<!-- Global Site Tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101529000-4"></script>
 		<script>
@@ -26,18 +28,12 @@
 	<body>
 		<div class="jumbotron">
 			<div class="container">
-				<h1>文字入れジェネレータ</h1>
-				<p id="comment">文字を合成するだけの簡易的なジェネレータです。</p>
+				<h1>ノルヴラント文字ジェネレータ</h1>
+				<p id="comment">ノルヴラント文字のロゴを生成するだけの簡易的なジェネレータです。</p>
 			</div>
 		</div>
 		<div class="container">
-			<div class="alert alert-success">Step1.(必須) 合成したいローカル上のスクリーンショットをアップロードします。</div>
-			<dl class="table">
-			<dd><label for="exampleInputEmail1">合成したいスクリーンショット</label></dd>
-			<dd><span><img src="" id="preview"></span><dd>
-			<dd><input type="file" accept="image/*" id="getfile"><dd>
-			</dl>
-			<div class="alert alert-success">Step2.(必須) 文字を入力します。</div>
+			<div class="alert alert-success">Step1.(必須) 文字を入力します。</div>
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="form-group">
@@ -110,18 +106,19 @@
 			</div>
 			<hr />
 			<p>広告</p>
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- カウントダウンジェネレータ　レスポンシブ -->
-		<ins class="adsbygoogle"
-		     style="display:block"
-	          data-ad-client="ca-pub-9341622472626262"
-          data-ad-slot="9647787091"
-     data-ad-format="auto"></ins>
-     <script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-     </script>
-     			<hr />
-			<div class="alert alert-success">Step3.(必須) 合成ボタンを押すと文字が貼り付けられます。文字の位置・サイズも変更できます。</div>
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- ノルヴラント文字ジェネレータ -->
+			<ins class="adsbygoogle"
+				 style="display:block"
+				 data-ad-client="ca-pub-9341622472626262"
+				 data-ad-slot="4462706617"
+				 data-ad-format="auto"
+				 data-full-width-responsive="true"></ins>
+			<script>
+				 (adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+     		<hr />
+			<div class="alert alert-success">Step2.(必須) 合成ボタンを押すと文字の画像が生成されます。文字の位置・サイズも変更できます。</div>
 			<div class="module">
 				<div style="display:none">
 					<img id="newImg">
@@ -195,7 +192,6 @@
 			<div class="container">
 				<h3>使い方</h3>
 				<ul>
-					<li>ご使用中のPC内にあるスクリーンショットをファイル選択で入力してください。サーバには保存されません。</li>
 					<li><button class="btn btn-primary">合成</button>ボタンを押してください。生成結果にロゴが合成されたスクリーンショットが表示されます。</li>
 					<li>生成結果を右クリックで保存してください。(PCのみでテストしています。PS４などはわかりません。)</li>
 				</ul>
@@ -205,9 +201,7 @@
 			<div class="container">
 				<h3>謝辞</h3>
 				<ul>
-					<li>カウントダウンサイト(<a href="http://www.ff14sb-cd.info/" target="_blank">「紅蓮のリベレーター」カウントダウン</a>)</li>
 					<li>このアプリ作成にあたって参考にしたサイト<a href="http://beatdjam.hatenablog.com/entry/2016/01/21/225150" target="_blank">【HTML5/jQuery/Javascript 】ローカルの画像を読み込んでJavaScriptで合成してみた</a>
-					<li>SS製作者のみなさま</li>
 					<li>ちょっとでもこのアプリに興味を持っていただいたみなさま</li>
 				</ul>
 			</div>
@@ -217,7 +211,6 @@
 			<div class="container">
 				<h3>本ツールについて</h3>
 				<ul>
-					<li>本ツールはどのゲームのスクリーンショットにも対応しています。</li>
 					<li>ただし、製作者はファイナルファンタジーXIVでのスクリーンショットを加工するために使用するために作り、テストも同ゲームのスクリーンショットを使っています。そのため、他ゲームでの画像のテストは行なっていません。</li>
 					<ul>
 						<li>記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。</li>
@@ -233,8 +226,7 @@
 			<div class="container">
 				<h3>更新履歴</h3>
 				<ul>
-					<li> 2017/09/19 リセットボタンを押さないと文字移動がおかしくなるバグの修正</li>
-					<li> 2017/04/09 公開開始</li>
+					<li> 2019/10/11 公開開始</li>
 				</ul>
 			</div>
 		</div>

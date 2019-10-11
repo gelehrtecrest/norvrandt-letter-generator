@@ -1,4 +1,29 @@
 (function($){
+	WebFont.load({
+		custom: {
+			families: ['Norvrandt'],
+			urls: ['sample.css']
+		},
+		loading: function() {
+			console.log('loading');
+		},
+		active: function() {
+			console.log('active');
+		},
+		inactive: function() {
+			console.log('inactive');
+		},
+		fontloading: function(familyName, fvd) {
+			console.log('fontloading', familyName, fvd);
+		},
+		fontactive: function(familyName, fvd) {
+			console.log('fontactive', familyName, fvd);
+		},
+		fontinactive: function(familyName, fvd) {
+			console.log('fontinactive', familyName, fvd);
+		}
+	});
+
 	//画像関連
 	var img;
 	var img2;
@@ -25,7 +50,6 @@
 
 	//ロゴを合成する処理
 	function genImage (imageIni){
-		console.log(imageIni);
 		// 文字合成
 		var content = $('#text').val();
 		img = new createjs.Text(content);
@@ -36,7 +60,6 @@
 		//合成画像の設定
 		//回転
 		img.rotation = imageIni.rotation;
-		console.log(img.rotation);
 		//回転の中心は、画像の中央
 		img.regX = img.getBounds().width / 2;
 		img.regY = img.getBounds().height / 2;
@@ -61,7 +84,6 @@
 		}
 
 
-		console.log(imageIni.heightOffset);
 		$('#result').attr({
 			'width': img.getBounds().width + imageIni.widthOffset,
 			'height': img.getBounds().height + imageIni.heightOffset
@@ -79,23 +101,23 @@
 
 	$(function(){
 		//設定のデフォルト値
-		$('#text').val('文字入れジェネレータ');
+		$('#text').val('Hello Norvrandt');
 		$('#color').val('white');
 		$('#color_shadow').val('#cb8a00');
 		$('#style').val('bold');
-		$('#font').val("/1.5 'ヒラギノ明朝 ProN','Hiragino Mincho ProN','Sawarabi Mincho','Noto Serif CJK JP','MS PMincho',serif");
+		$('#font').val("/1.5 'Norvrandt','ヒラギノ明朝 ProN','Hiragino Mincho ProN','Sawarabi Mincho','Noto Serif CJK JP','MS PMincho',serif");
 		$('#px').val('48px');
 
 		//読込画像のオブジェクト
 		var imageIni = {
-			xPos : 0,
-			yPos : 0,
+			xPos : 1,
+			yPos : 1,
 			Scale : 0,
 			rotation : 0,
 			alpha : 1.0,
 			shadow : 40,
-			widthOffset : 0,
-			heightOffset : 0,
+			widthOffset : 20,
+			heightOffset : 20,
 			imageData : null,
 			logoImageData : null,
 			resetImage : function(){

@@ -9,8 +9,13 @@ body {
 	padding-bottom: 15px;
 }
 
+@font-face{
+	font-family:'Norvrandt';
+	src:url('https://gelehrtecrest.github.io/norvrandt-font/fonts/Norvrandt-Regular.woff') format('woff');
+}
 #result{
 	background-color: lightgray;
+	font-family:'Norvrandt';
 }
 
 #preview {
