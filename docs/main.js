@@ -30,12 +30,8 @@
 		var content = $('#text').val();
 		img = new createjs.Text(content);
 		img.color = $('#color').val();
-		console.log($('#px').val());
-		console.log((1 + imageIni.Scale / 10));
 		var px = $('#px').val().slice( 0, -2 ) * (1 + imageIni.Scale / 10);
-		console.log(px);
 		img.font = $('#style').val() + ' ' + px + 'px' + $('#font').val();
-		console.log(img.font);
 
 		//合成画像の設定
 		//回転
