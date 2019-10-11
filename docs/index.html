@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head lang="ja">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta description="文字入れジェネレータはゲームのスクリーンショットに文字入れを載せるためのアプリです。FINAL FANTASY XIVのスクリーンショットでテストしています。">
+		<title>文字入れジェネレータ</title>
+		<script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link href="main.css" rel="stylesheet">
+		<script src="main.js?20190806"></script>
+		<!-- Global Site Tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101529000-4"></script>
+		<script>
+  window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+    gtag('config', 'UA-101529000-4');
+		</script>
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>文字入れジェネレータ</h1>
+				<p id="comment">文字を合成するだけの簡易的なジェネレータです。</p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="alert alert-success">Step1.(必須) 合成したいローカル上のスクリーンショットをアップロードします。</div>
+			<dl class="table">
+			<dd><label for="exampleInputEmail1">合成したいスクリーンショット</label></dd>
+			<dd><span><img src="" id="preview"></span><dd>
+			<dd><input type="file" accept="image/*" id="getfile"><dd>
+			</dl>
+			<div class="alert alert-success">Step2.(必須) 文字を入力します。</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label for="exampleInputEmail1">合成したい文字</label>
+						<input type="text" class="form-control input" id="text" placeholder="文字入れ">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">文字に影を入れたい場合チェックを入れる(FF14公式風フォントの仕上がりになります)
+							<input type="checkbox" id="color_shadow_flag" value="1" checked="checked">
+						</label>
+					</div>
+					<div class="form-group">
+						<button id="setting_more_btn" class="btn btn-primary">詳細設定を開く</button>
+					</div>
+				</div>
+				<div id="setting_more" style="display:none">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="exampleInputEmail1">フォントカラー：ボタンから選んでください：結果はテキストボックスに入ります</label>
+							<div class="col-sm-12">
+								<div class="row">
+									<button type="button" id="color_white" class="color_button btn btn-default col-sm-1">白</button>
+									<button type="button" id="color_blue" class="color_button btn btn-info col-sm-1">青</button>
+									<button type="button" id="color_green" class="color_button btn btn-success col-sm-1">緑</button>
+									<button type="button" id="color_yellow" class="color_button btn btn-warning col-sm-1">黄</button>
+									<button type="button" id="color_red" class="color_button btn btn-danger col-sm-1">赤</button>
+									<button type="button" id="color_black" class="color_button btn btn-black col-sm-1">黒</button>
+								</div>
+							</div>
+							<label for="exampleInputEmail1">または、直接テキストボックスに色を入力してください</label>
+							<input type="text" class="form-control input" id="color" placeholder="フォントカラー">
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="exampleInputEmail1">影のカラー：ボタンから選んでください：結果はテキストボックスに入ります</label>
+							<div class="col-sm-12">
+								<div class="row">
+									<button type="button" id="color_shadow_white" class="color_shadow_button btn btn-default col-sm-1">白</button>
+									<button type="button" id="color_shadow_blue" class="color_shadow_button btn btn-info col-sm-1">青</button>
+									<button type="button" id="color_shadow_green" class="color_shadow_button btn btn-success col-sm-1">緑</button>
+									<button type="button" id="color_shadow_yellow" class="color_shadow_button btn btn-warning col-sm-1">黄</button>
+									<button type="button" id="color_shadow_red" class="color_shadow_button btn btn-danger col-sm-1">赤</button>
+									<button type="button" id="color_shadow_black" class="color_shadow_button btn btn-black col-sm-1">黒</button>
+								</div>
+							</div>
+							<label for="exampleInputEmail1">または、直接テキストボックスに色を入力してください</label>
+							<input type="text" class="form-control input" id="color_shadow" placeholder="影のカラー">
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="exampleInputEmail1">フォントスタイル</label>
+							<input type="text" class="form-control input" id="style" placeholder="フォントスタイル">
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="exampleInputEmail1">フォントサイズ</label>
+							<input type="text" class="form-control input" id="px" placeholder="フォントサイズ">
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="exampleInputEmail1">フォントの種類(CSSショートハンド)</label>
+							<input type="text" class="form-control input" id="font" placeholder="フォントショートハンド">
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<p>広告</p>
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- カウントダウンジェネレータ　レスポンシブ -->
+		<ins class="adsbygoogle"
+		     style="display:block"
+	          data-ad-client="ca-pub-9341622472626262"
+          data-ad-slot="9647787091"
+     data-ad-format="auto"></ins>
+     <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+     </script>
+     			<hr />
+			<div class="alert alert-success">Step3.(必須) 合成ボタンを押すと文字が貼り付けられます。文字の位置・サイズも変更できます。</div>
+			<div class="module">
+				<div style="display:none">
+					<img id="newImg">
+					<a href="" id="dlImg"></a>
+				</div>
+				<h5>
+					ダウンロードボタンからダウンロード可能です。
+					<button id="btnDownload" class="btn btn-primary">ダウンロード</button>
+				</h5>
+				<h5>
+					スマホなどの場合は、別ウィンドウを開いた方が保存しやすいかもしれません。
+					<button id="btnNewWindow" class="btn btn-primary">別ウィンドウを開く</button>
+				</h5>
+				<h5>もしダウンロードボタンが使えない場合は、生成結果を右クリックしてダウンロードしてください。</h5>
+				<div id="alert" class="alert alert-warning" role="alert"></div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<button id="update" class="col-sm-2 editgenerator btn btn-primary">
+						<div class="lang editgenerator" language="ja">合成</div>
+						<div class="lang editgenerator" language="en" style="display:none">Put</div>
+						<div class="lang editgenerator" language="ch" style="display:none">放置</div>
+						<div class="lang editgenerator" language="kr" style="display:none">넣기</div>
+					</button>
+					<button id="reset" class="col-sm-2 editgenerator btn btn-warning">
+						<div class="lang editgenerator" language="ja">リセット</div>
+						<div class="lang editgenerator" language="en" style="display:none">Reset</div>
+						<div class="lang editgenerator" language="ch" style="display:none">重启</div>
+						<div class="lang editgenerator" language="kr" style="display:none">다시 놓기</div>
+					</button>
+					<button id="left" class="col-sm-2 editgenerator btn btn-default">←</button>
+					<button id="up" class="col-sm-2 editgenerator btn btn-default">↑</button>
+					<button id="down" class="col-sm-2 editgenerator btn btn-default">↓</button>
+					<button id="right" class="col-sm-2 editgenerator btn btn-default">→</button>
+					<button id="zoomin" class="col-sm-2 editgenerator btn btn-default glyphicon glyphicon-resize-full"></button>
+					<button id="zoomout" class="col-sm-2 editgenerator btn btn-default glyphicon glyphicon-resize-small"></button>
+					<button id="rotation_l" class="col-sm-2 editgenerator btn btn-default glyphicon glyphicon-repeat" style="transform: scale(-1, 1);"></button>
+					<button id="rotation_r" class="col-sm-2 editgenerator btn btn-default glyphicon glyphicon-repeat"></button>
+					<button id="alpha_down" class="col-sm-2 editgenerator btn btn-default">
+						<div id="alpha_down" class="lang editgenerator" language="ja">薄く</div>
+						<div id="alpha_down" class="lang editgenerator" language="en" style="display:none">Thin</div>
+						<div id="alpha_down" class="lang editgenerator" language="ch" style="display:none">瘦</div>
+						<div id="alpha_down" class="lang editgenerator" language="kr" style="display:none">얇은</div>
+					</button>
+					<button id="alpha_up" disabled class="col-sm-2 editgenerator btn btn-default">
+						<div id="alpha_up" class="lang editgenerator" language="ja">濃く</div>
+						<div id="alpha_up" class="lang editgenerator" language="en" style="display:none">Dark</div>
+						<div id="alpha_up" class="lang editgenerator" language="ch" style="display:none">黑暗</div>
+						<div id="alpha_up" class="lang editgenerator" language="kr" style="display:none">진하게</div>
+					</button>
+					<button id="widthOffset_up" class="col-sm-3 editgenerator btn btn-default">幅を広く</button>
+					<button id="widthOffset_down" class="col-sm-3 editgenerator btn btn-default">幅を狭く</button>
+					<button id="heightOffset_up" class="col-sm-3 editgenerator btn btn-default">高さを高く</button>
+					<button id="heightOffset_down" class="col-sm-3 editgenerator btn btn-default">高さを低く</button>
+				</div>
+			</div>
+			<div class="module">
+				<div class="container canvas-stage">
+					<canvas id="result" width="100%" height="100%"></canvas>
+				</div>
+			</div>
+			<div class="settingurl">
+				<label>現在の設定情報のURL：このURLをブックマークすると、現在の設定情報を引き継げます</label>
+				<div id="settingurl" class="alert alert-info"><a href=""></a></div>
+			</div>
+		</div>
+
+		<br />
+
+		<div class="jumbotron">
+			<div class="container">
+				<h3>使い方</h3>
+				<ul>
+					<li>ご使用中のPC内にあるスクリーンショットをファイル選択で入力してください。サーバには保存されません。</li>
+					<li><button class="btn btn-primary">合成</button>ボタンを押してください。生成結果にロゴが合成されたスクリーンショットが表示されます。</li>
+					<li>生成結果を右クリックで保存してください。(PCのみでテストしています。PS４などはわかりません。)</li>
+				</ul>
+			</div>
+		</div>
+		<div class="jumbotron">
+			<div class="container">
+				<h3>謝辞</h3>
+				<ul>
+					<li>カウントダウンサイト(<a href="http://www.ff14sb-cd.info/" target="_blank">「紅蓮のリベレーター」カウントダウン</a>)</li>
+					<li>このアプリ作成にあたって参考にしたサイト<a href="http://beatdjam.hatenablog.com/entry/2016/01/21/225150" target="_blank">【HTML5/jQuery/Javascript 】ローカルの画像を読み込んでJavaScriptで合成してみた</a>
+					<li>SS製作者のみなさま</li>
+					<li>ちょっとでもこのアプリに興味を持っていただいたみなさま</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="jumbotron">
+			<div class="container">
+				<h3>本ツールについて</h3>
+				<ul>
+					<li>本ツールはどのゲームのスクリーンショットにも対応しています。</li>
+					<li>ただし、製作者はファイナルファンタジーXIVでのスクリーンショットを加工するために使用するために作り、テストも同ゲームのスクリーンショットを使っています。そのため、他ゲームでの画像のテストは行なっていません。</li>
+					<ul>
+						<li>記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。</li>
+					</ul>
+					<li>ソースコードはGithub上で公開しています。<a href="https://github.com/gelehrtecrest/countdown-generator" target="_blank">https://github.com/gelehrtecrest/countdown-generator</a></li>
+					<li>本ツールのclone及び可変・再配布などはご自由に。</li>
+					<li>その他お問い合わせなどは <a href="https://twitter.com/gelehrte_crest" target="_blank">@gelehrte_crest</a>へレスもしくはDMお願いします。</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="jumbotron">
+			<div class="container">
+				<h3>更新履歴</h3>
+				<ul>
+					<li> 2017/09/19 リセットボタンを押さないと文字移動がおかしくなるバグの修正</li>
+					<li> 2017/04/09 公開開始</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
