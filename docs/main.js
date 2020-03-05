@@ -2,7 +2,7 @@
 	WebFont.load({
 		custom: {
 			families: ['Norvrandt'],
-			urls: ['sample.css']
+			urls: ['style.css']
 		},
 		loading: function() {
 			console.log('loading');
